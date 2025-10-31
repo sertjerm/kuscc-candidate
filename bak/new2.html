@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ผู้สมัครรับการสรรหาคณะกรรมการดำเนินการ ประจำปี 2569 - สายวิชาการ</title>
+    
+    <!-- ✅ Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- ✅ jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <!-- ✅ Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- ✅ Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- ✅ External CSS -->
+    <style>
+        /* 📄 File: index.css
+        ------------------------------------------------------
+          สไตล์สำหรับสไลด์ผู้สมัคร - Responsive Improved
+          - Desktop: คงเดิมทุกอย่าง (ไม่แก้)
+          - Mobile/Tablet: ปรับให้สวยงามและใช้งานง่ายขึ้น
+        ------------------------------------------------------ */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Sarabun", sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ============================================
+           DESKTOP LAYOUT - คงเดิมทั้งหมด ไม่แก้ไข
+        ============================================ */
+        @media (min-width: 1024px) and (orientation: landscape) {
+            body {
+                overflow: hidden;
+            }
+
+            .hero-slider {
+                position: relative;
+                height: 100vh;
+                overflow: hidden;
+            }
+
+            .hero-slide {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                transform: scale(1.1);
+            }
+
+            .hero-slide.active {
+                opacity: 1;
+                visibility: visible;
+                transform: scale(1);
+                z-index: 2;
+            }
+
+            .hero-slide::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(
+                    135deg,
+                    rgba(var(--gradient-from-rgb), 0.9) 0%,
+                    rgba(var(--gradient-to-rgb), 0.9) 100%
+                );
+                z-index: 1;
+            }
+
+            .hero-slide::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: inherit;
+                background-size: cover;
+                background-position: center top;
+                opacity: 0.08;
+                filter: blur(8px);
+                z-index: 0;
+            }
+
+            .candidate-info {
+                max-width: 1400px;
+                margin: 0 auto;
+                display: flex;
+                gap: 3rem;
+                align-items: center;
+                height: 100%;
+                padding: 3rem;
+                position: relative;
+                z-index: 2;
+            }
+        }
+
+        /* ============================================
+           MOBILE/TABLET LAYOUT - ปรับปรุงใหม่
+        ============================================ */
+        @media (max-width: 1023px), (orientation: portrait) {
+            body {
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+
+            .hero-slider {
+                position: relative;
+                height: auto;
+                min-height: 100vh;
+                overflow: visible;
+            }
+
+            .hero-slide {
+                position: relative;
+                height: auto;
+                min-height: 100vh;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                display: none;
+                width: 100%;
+            }
+
+            .hero-slide.active {
+                display: block;
+            }
+
+            .hero-slide::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(
+                    135deg,
+                    rgba(var(--gradient-from-rgb), 0.9) 0%,
+                    rgba(var(--gradient-to-rgb), 0.9) 100%
+                );
+                z-index: 1;
+            }
+
+            .hero-slide::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: inherit;
+                background-size: cover;
+                background-position: center top;
+                opacity: 0.08;
+                filter: blur(8px);
+                z-index: 0;
+            }
+
+            .candidate-info {
+                max-width: 100%;
+                margin: 0 auto;
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+                padding: 1.5rem;
+                padding-top: 120px;
+                padding-bottom: 100px;
+                position: relative;
+                z-index: 2;
+                min-height: auto;
+            }
+        }
+
+        /* Candidate Type Title */
+        .candidate-type-banner {
+            position: absolute;
+            top: -90px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            padding: 1rem;
+        }
+
+        .candidate-type-title {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .candidate-type-title h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .candidate-type-title p {
+            font-size: 1.2rem;
+            color: #4a5568;
+            font-weight: 600;
+        }
+
+        /* Left Column: Photo + Number */
+        .left-column {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .photo-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .candidate-photo {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .candidate-number-badge {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.5);
+            border: 5px solid white;
+            z-index: 10;
+        }
+
+        .candidate-number-badge .number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: white;
+            line-height: 1;
+        }
+
+        .candidate-number-badge .label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: white;
+            margin-top: 0.25rem;
+        }
+
+        /* Right Column: Info Cards */
+        .right-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* Name Card */
+        .name-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .name-card h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #1a202c;
+            margin-bottom: 0.75rem;
+            line-height: 1.2;
+        }
+
+        .name-card .affiliation {
+            font-size: 1.25rem;
+            color: #4a5568;
+            font-weight: 600;
+        }
+
+        /* Info Cards Grid */
+        .info-cards-grid {
+            display: grid;
+            gap: 1.25rem;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .info-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-card-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .info-card-icon.education {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+        }
+
+        .info-card-icon.concept {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .info-card-icon.experience {
+            background: linear-gradient(135deg, #ec4899, #db2777);
+            color: white;
+        }
+
+        .info-card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1a202c;
+            flex-grow: 1;
+        }
+
+        .info-card-content {
+            color: #4a5568;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .info-card-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .info-card-content li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .info-card-content li:before {
+            content: "•";
+            position: absolute;
+            left: 0.25rem;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.25rem;
+        }
+
+        /* Navigation Controls */
+        .nav-controls {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #667eea;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-btn:hover {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .nav-btn:active {
+            transform: scale(0.95);
+        }
+
+        .slide-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0 0.5rem;
+        }
+
+        /* Audio Button */
+        .audio-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.15));
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            z-index: 100;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .audio-btn:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.25));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ============================================
+           RESPONSIVE ADJUSTMENTS - Mobile/Tablet Only
+        ============================================ */
+
+        /* Mobile Specific (< 640px) */
+        @media (max-width: 639px) {
+            .candidate-type-title {
+                padding: 1rem 1.5rem;
+            }
+
+            .candidate-type-title h2 {
+                font-size: 1.5rem;
+            }
+
+            .candidate-type-title p {
+                font-size: 1rem;
+            }
+
+            .photo-wrapper {
+                max-width: 280px;
+                padding: 1rem;
+            }
+
+            .candidate-number-badge {
+                width: 70px;
+                height: 70px;
+            }
+
+            .candidate-number-badge .number {
+                font-size: 2.25rem;
+            }
+
+            .candidate-number-badge .label {
+                font-size: 0.7rem;
+            }
+
+            .name-card h1 {
+                font-size: 1.75rem;
+            }
+
+            .name-card .affiliation {
+                font-size: 1rem;
+            }
+
+            .info-card {
+                padding: 1.25rem;
+            }
+
+            .info-card-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.25rem;
+            }
+
+            .info-card-title {
+                font-size: 1.1rem;
+            }
+
+            .info-card-content {
+                font-size: 0.95rem;
+            }
+
+            .audio-btn {
+                top: 10px;
+                right: 10px;
+                padding: 0.6rem 1.2rem;
+                font-size: 0.85rem;
+            }
+
+            .nav-controls {
+                bottom: 15px;
+                padding: 0.75rem 1rem;
+            }
+
+            .nav-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.25rem;
+            }
+        }
+
+        /* Tablet Specific (640px - 1023px) */
+        @media (min-width: 640px) and (max-width: 1023px) {
+            .candidate-info {
+                max-width: 700px;
+                padding: 2rem;
+                padding-top: 130px;
+            }
+
+            .photo-wrapper {
+                max-width: 350px;
+            }
+
+            .info-cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .name-card h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Landscape Tablet */
+        @media (min-width: 768px) and (max-width: 1023px) and (orientation: landscape) {
+            .candidate-info {
+                flex-direction: row;
+                gap: 2rem;
+                padding-top: 100px;
+            }
+
+            .left-column {
+                flex: 0 0 40%;
+            }
+
+            .right-column {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Audio Button -->
+    <button class="audio-btn">
+        <i class="fas fa-play"></i>
+        <span>เล่นซ้ำในเชีย</span>
+    </button>
+
+    <!-- Hero Slider Container -->
+    <div class="hero-slider" id="heroSlider"></div>
+
+    <!-- Navigation Controls -->
+    <div class="nav-controls">
+        <button class="nav-btn" id="prevBtn">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="slide-indicator">
+            <span id="currentSlide">1</span>
+            <span>/</span>
+            <span id="totalSlides">13</span>
+        </div>
+        <button class="nav-btn" id="nextBtn">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <script>
+        // ===== ข้อมูลผู้สมัคร =====
+        const candidates = [
+            // ===== สายวิชาการ =====
+            {
+                number: 1,
+                name: "รศ.ดร.วัลลภ อารีรบ",
+                affiliation: "คณะวิทยาศาสตร์",
+                line: "สายวิชาการ",
+                image: "https://apps4.coop.ku.ac.th/candidate/images/A1.jpg",
+                education: [
+                    "Dr. Agr. Sci. (Plant Physiology) Warsaw Agricultural University",
+                ],
+                experience: [
+                    "กรรมการดำเนินการ สอ.มก. 10 ปี (2553–2567)",
+                    "ผู้ตรวจสอบกิจการ ร้านสหกรณ์มหาวิทยาลัยเกษตรศาสตร์",
+                ],
+                concept:
+                    "โปร่งใส ยั่งยืน พัฒนาเพื่อสมาชิก — ซื่อสัตย์สุจริต รับฟังความคิดเห็น ตัดสินใจเป็นธรรม",
+                fallbackIcon: '<i class="fas fa-user-tie"></i>'
+            },
+            {
+                number: 2,
+                name: "รศ.ดร.ศุภชัย เอี่ยมสกุล",
+                affiliation: "คณะวิทยาศาสตร์",
+                line: "สายวิชาการ",
+                image: "https://apps4.coop.ku.ac.th/candidate/images/A2.jpg",
+                education: [
+                    "Ph.D. (Chemistry) University of North Carolina at Chapel Hill, USA",
+                    "วท.ม. (เคมี) จุฬาลงกรณ์มหาวิทยาลัย",
+                ],
+                experience: [
+                    "อาจารย์ประจำภาควิชาเคมี คณะวิทยาศาสตร์ มก. 26 ปี",
+                    "กรรมการสภามหาวิทยาลัย (2557–2563)",
+                    "กรรมการพิจารณาตำแหน่งวิชาการ",
+                    "เลขานุการ ศูนย์เครื่องมือวิทยาศาสตร์ มก.",
+                ],
+                concept:
+                    "พัฒนาสหกรณ์ให้เป็นองค์กรแห่งความไว้วางใจ ซื่อสัตย์ โปร่งใส ตรวจสอบได้ พัฒนาบริการสมาชิกด้วยเทคโนโลยีทันสมัย เพิ่มสวัสดิการและกิจกรรมสร้างความสุข",
+                fallbackIcon: '<i class="fas fa-user-tie"></i>'
+            },
+            {
+                number: 3,
+                name: "ผศ.ดร.ศิริลักษณ์ ศรีหล้า",
+                affiliation: "คณะสถาปัตยกรรมศาสตร์",
+                line: "สายวิชาการ",
+                image: "https://apps4.coop.ku.ac.th/candidate/images/A3.jpg",
+                education: [
+                    "D.Eng. (Architecture & Planning) Nagoya University, Japan",
+                    "M.Arch. (Urban Design) Nagoya University, Japan",
+                ],
+                experience: [
+                    "รองหัวหน้าภาควิชาการออกแบบภูมิทัศน์ (2566–2567)",
+                    "รักษาการหัวหน้าภาค (2567)",
+                    "กรรมการดำเนินการ สอ.มก. (2561–2564)",
+                    "ผู้ตรวจสอบกิจการ สอ.มก. (2557–2560)",
+                ],
+                concept:
+                    "พัฒนาสหกรณ์อย่างสร้างสรรค์ให้มีความมั่นคงและยั่งยืน ยกระดับคุณภาพชีวิตสมาชิก ยึดหลักธรรมาภิบาล — ซื่อสัตย์ โปร่งใส ตรวจสอบได้",
+                fallbackIcon: '<i class="fas fa-user-tie"></i>'
+            },
+            {
+                number: 4,
+                name: "รศ.ดร.สมชาย นำประเสริฐชัย",
+                affiliation: "คณะวิศวกรรมศาสตร์",
+                line: "สายวิชาการ",
+                image: "https://apps4.coop.ku.ac.th/candidate/images/A4.jpg",
+                education: [
+                    "Ph.D. (Management of Technology) Asian Institute of Technology (AIT)",
+                    "M.Eng. (Information Science) Utsunomiya University, Japan",
+                ],
+                experience: [
+                    "ผู้อำนวยการสำนักบริการคอมพิวเตอร์ (2561–2565)",
+                    "นำ Mobile Application และระบบดิจิทัลมาพัฒนา มก.",
+                    "คณะที่ปรึกษาวิชาการรัฐมนตรีช่วยว่าการกระทรวงแรงงาน (2563–2564)",
+                ],
+                concept:
+                    "บริหารการเงินและการลงทุนรอบคอบ ส่งเสริมความรู้ด้านการวางแผนการเงินแก่สมาชิก และพัฒนาบริการด้วยเทคโนโลยีที่ทันสมัย",
+                fallbackIcon: '<i class="fas fa-user-tie"></i>'
+            },
+            {
+                number: 5,
+                name: "นายสหัส ภัทรฐิตินันท์",
+                affiliation: "สำนักบริหารการศึกษา",
+                line: "สายวิชาการ",
+                image: "https://apps4.coop.ku.ac.th/candidate/images/A5.jpg",
+                education: ["รัฐประศาสนศาสตร์บัณฑิต มหาวิทยาลัยสุโขทัยธรรมาธิราช"],
+                experience: [
+                    "อายุราชการ 39 ปี",
+                    "กรรมการบริหาร มก. (2556–2559)",
+                    "ผู้อำนวยการสำนักทะเบียนและประมวลผล (2556–2559)",
+                    "ได้รับรางวัลคุณภาพหน่วยงานดีเด่น 16 รางวัล",
+                    "กรรมการดำเนินการ สอ.มก. 10 ปี",
+                    "ประธานกรรมการการศึกษาและประชาสัมพันธ์ (สวัสดิการ)",
+                ],
+                concept:
+                    'ขับเคลื่อนบริการผ่านระบบมือถือ "เข้าถึง ชัดเจน รวดเร็ว รับฟังความคิดเห็นของสมาชิกทุกคน"',
+                fallbackIcon: '<i class="fas fa-user-tie"></i>'
+            },
+            {
+                number: 6,
+                name: "รศ.ดร.ธนโชติ บุญวรโชติ",
+                affiliation: "คณะอุตสาหกรรมเกษตร",
+                line: "สายวิชาการ",
+                image: "https://apps4.coop.ku.ac.th/candidate/images/A6.png",
+                education: [
+                    "ปริญญาเอก บริหารธุรกิจดุษฎีบัณฑิต (การเงิน) มหาวิทยาลัยธรรมศาสตร์",
+                ],
+                experience: [
+                    "ผู้ทรงคุณวุฒิสาขาการเงิน",
+                    "รองผู้อำนวยการสำนักบริหารการศึกษา (2560–2564)",
+                ],
+                concept:
+                    "การลงทุนทางการเงินของสหกรณ์มีสัดส่วนมากกว่าการปล่อยสินเชื่อ จึงต้องพิจารณาการจัดการความเสี่ยงทางการเงินอย่างรอบคอบ",
+                fallbackIcon: '<i class="fas fa-user-tie"></i>'
+            },
+            {
+                number: 7,
+                name: "นายภูมิสิษฐ์ ชูไกรพินิจ",
+                affiliation: "คณะประมง",
+                line: "สายวิชาการ",
+                image: "https://apps4.coop.ku.ac.th/candidate/images/A7.jpg",
+                education: [
+                    "ศษ.ม. (การบริหารการศึกษา) มหาวิทยาลัยเกษตรศาสตร์",
+                    "วท.บ. (เทคโนโลยีการเกษตร) วิทยาลัยครูนครปฐม",
+                ],
+                experience: [
+                    "ประสบการณ์ทำงาน มก. 24 ปี",
+                    "หัวหน้างานบริการการศึกษา คณะประมง",
+                    "คณะกรรมการสภาพนักงาน มก.",
+                ],
+                concept:
+                    "ยึดมั่นในอุดมการณ์สหกรณ์ ทำงานเพื่อสมาชิก รับฟังความคิดเห็น บริหารจัดการมืออาชีพ มีธรรมาภิบาล พัฒนาสวัสดิการสมาชิก",
+                fallbackIcon: '<i class="fas fa-user-tie"></i>'
+            },
+            {
+                number: 8,
+                name: "ดร.ฉัตรชัย พ่วงพลับ",
+                affiliation: "คณะบริหารธุรกิจ",
+                line: "สายวิชาการ",
+                image: "https://apps4.coop.ku.ac.th/candidate/images/A8.jpg",
+                education: [
+                    "ปร.ด. (เทคโนโลยีการศึกษา) มหาวิทยาลัยเกษตรศาสตร์",
+                    "ค.อ.ม. (เทคโนโลยีเทคนิคศึกษา) มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ",
+                    "วท.ม. (เทคโนโลยีสารสนเทศ) มหาวิทยาลัยรังสิต",
+                ],
+                experience: [
+                    "นักวิชาการคอมพิวเตอร์ชำนาญการ",
+                    "รองประธานสภาพนักงาน มก. คนที่ 2",
+                ],
+                concept:
+                    "แนวคิด COOPS: C - Clear & Clean (โปร่งใส ตรวจสอบได้), O - Online-first (ดิจิทัลลดต้นทุน), O - Ownership by Members (สมาชิกมีส่วนร่วม), P - Prudence & Performance (บริหารความเสี่ยงรอบคอบ), S - Sustainability & Service (ESG ควบคู่สวัสดิการ)",
+                fallbackIcon: '<i class="fas fa-user-tie"></i>'
+            },
+
+            // ===== สายสนับสนุน =====
+            {
+                number: 1,
+                name: "นายสมนึก ตั้งสุวรรณเสมา",
+                affiliation: "กองคลัง สำนักงานมหาวิทยาลัย",
+                line: "สายสนับสนุน",
+                image: "https://apps4.coop.ku.ac.th/candidate/images/B1.jpg",
+                education: [
+                    "รัฐประศาสนศาสตร์บัณฑิต มหาวิทยาลัยสุโขทัยธรรมาธิราช",
+                    "บริหารธุรกิจบัณฑิต มหาวิทยาลัยสุโขทัยธรรมาธิราช",
+                ],
+                experience: [
+                    "อายุราชการ 39 ปี",
+                    "กรรมการดำเนินการ สอ.มก. (2550–2553, 2555–2557, 2559–2562, 2564–2567)",
+                    "รองประธานกรรมการ, ประธานคณะกรรมการเงินกู้, ประธานคณะกรรมการศึกษาและประชาสัมพันธ์",
+                ],
+                concept:
+                    "พัฒนา สอ.มก. ด้วยความมุ่งมั่น สร้างสรรค์ เพื่อคุณภาพชีวิตที่ดีของสมาชิก ยึดหลัก ซื่อสัตย์ รอบคอบ จริงใจ โปร่งใส เป็นธรรม",
+                fallbackIcon: '<i class="fas fa-user"></i>'
+            },
+            {
+                number: 2,
+                name: "นายบุญช่วย เอี่ยมประพัฒน์",
+                affiliation: "คณะเกษตร",
+                line: "สายสนับสนุน",
+                image: "https://apps4.coop.ku.ac.th/candidate/images/B2.jpg",
+                education: ["มัธยมศึกษาตอนต้น โรงเรียนวัดราชโอรส"],
+                experience: [
+                    "ข้าราชการบำนาญ",
+                    "รับราชการที่ศูนย์วิจัยข้าวโพดและข้าวฟ่างแห่งชาติ คณะเกษตร มก.",
+                    "รองประธานกรรมการ สอ.มก.",
+                    "ประธานคณะกรรมการเงินกู้",
+                    "ประธานคณะกรรมการส่งเสริมและพัฒนาคุณภาพชีวิต",
+                ],
+                concept:
+                    "ซื่อสัตย์ เอื้ออาทร มีน้ำใจ บริการสมาชิก จริงจัง จริงใจ มุ่งพัฒนาองค์กร รักษาผลประโยชน์ของมวลสมาชิก",
+                fallbackIcon: '<i class="fas fa-user"></i>'
+            },
+            {
+                number: 3,
+                name: "นายพงศ์พันธ์ เหลืองวิไล",
+                affiliation: "สำนักงานวิทยาเขตกำแพงแสน",
+                line: "สายสนับสนุน",
+                image: "https://apps4.coop.ku.ac.th/candidate/images/B3.jpg",
+                education: [
+                    "ศษ.ม. (การบริหารการศึกษา) มหาวิทยาลัยเกษตรศาสตร์",
+                    "วท.บ. (เทคโนโลยีการเกษตร) วิทยาลัยครูนครปฐม",
+                    "ป.กศ.สูง เอกวิทยาศาสตร์ทั่วไป วิทยาลัยครูจันทรเกษม",
+                ],
+                experience: [
+                    "เจ้าหน้าที่บริหารงานทั่วไปชำนาญการ สำนักงานวิทยาเขตกำแพงแสน (2535–2563)",
+                    "กรรมการ/ผู้ตรวจสอบกิจการ สอ.มก.",
+                    "ประธาน/กรรมการ/รักษาการผู้จัดการ ร้านสหกรณ์เกษตรศาสตร์ (วิทยาเขตกำแพงแสน)",
+                ],
+                concept:
+                    "รักเคารพในความเสมอภาคของสมาชิกทุกคน — ทุกคนเลือกเกิดไม่ได้ แต่เลือกที่จะเป็นคนดีได้",
+                fallbackIcon: '<i class="fas fa-user"></i>'
+            },
+            {
+                number: 4,
+                name: "นายถาวร คล้ายวงษ์",
+                affiliation: "สำนักงานวิทยาเขตกำแพงแสน",
+                line: "สายสนับสนุน",
+                image: "https://apps4.coop.ku.ac.th/candidate/images/B4.jpg",
+                education: [
+                    "ศศ.บ. รัฐศาสตร์ มหาวิทยาลัยรามคำแหง (สาขารัฐประศาสนศาสตร์ บริหารรัฐกิจ)",
+                ],
+                experience: [
+                    "เคยเป็นหัวหน้าหน่วยประชาสัมพันธ์กำแพงแสน",
+                    "ออกแบบและร่วมจัดทำป้ายซุ้มประตูงานวันเกษตรแห่งชาติ 2540",
+                    "เกษียณราชการแล้ว ได้รับเครื่องราชอิสริยาภรณ์ ทช.",
+                ],
+                concept:
+                    "สร้างความมั่นคงขององค์กร ให้เกิดความมั่นคงทางการเงิน คุณภาพชีวิตและสิทธิประโยชน์แก่สมาชิกอย่างเที่ยงธรรม โปร่งใส ตรวจสอบได้ ด้วยแนวคิดนวัตกรรม เทคโนโลยีสมัยใหม่",
+                fallbackIcon: '<i class="fas fa-user"></i>'
+            },
+            {
+                number: 5,
+                name: "นายประสิทธิ์ จันทร์ศรีบุตร",
+                affiliation: "สหกรณ์ออมทรัพย์ มก.",
+                line: "สายสนับสนุน",
+                image: "https://apps4.coop.ku.ac.th/candidate/images/B5.jpg",
+                education: [
+                    "ศิลปศาสตรมหาบัณฑิต รัฐศาสตร์ มหาวิทยาลัยเกษตรศาสตร์",
+                    "ศิลปศาสตรบัณฑิต รัฐประศาสนศาสตร์ มหาวิทยาลัยราชภัฏนครปฐม",
+                ],
+                experience: [
+                    "เจ้าหน้าที่สหกรณ์ออมทรัพย์ มก. (2531–2545) บางเขน",
+                    "เจ้าหน้าที่สหกรณ์ออมทรัพย์ มก. (2546–2556) บางเขน",
+                    "หัวหน้าสำนักงาน สอ.มก. สาขากำแพงแสน (2557–2565)",
+                    "ผ่านการอบรมด้านสหกรณ์จากสันนิบาตสหกรณ์และชุมนุมสหกรณ์ออมทรัพย์แห่งประเทศไทย",
+                ],
+                concept:
+                    "ทำงานด้วยความซื่อสัตย์สุจริต โปร่งใส เสมอภาค ยึดอุดมการณ์บริหารแบบธรรมาภิบาล ตอบแทนคุณสหกรณ์/สมาชิกและร่วมพัฒนาสหกรณ์",
+                fallbackIcon: '<i class="fas fa-user"></i>'
+            },
+        ];
+
+        // ===== สร้าง Slides =====
+        function createSlides() {
+            const slider = document.getElementById('heroSlider');
+            let currentLine = '';
+            let lineColor = {
+                from: '102, 126, 234',
+                to: '118, 75, 162'
+            };
+
+            candidates.forEach((candidate, index) => {
+                // เปลี่ยนสีตามสาย
+                if (candidate.line !== currentLine) {
+                    currentLine = candidate.line;
+                    if (candidate.line === 'สายวิชาการ') {
+                        lineColor = { from: '102, 126, 234', to: '118, 75, 162' };
+                    } else {
+                        lineColor = { from: '236, 72, 153', to: '219, 39, 119' };
+                    }
+                }
+
+                const slide = document.createElement('div');
+                slide.className = `hero-slide ${index === 0 ? 'active' : ''}`;
+                slide.style.cssText = `
+                    --gradient-from-rgb: ${lineColor.from};
+                    --gradient-to-rgb: ${lineColor.to};
+                    background-image: url('${candidate.image}');
+                `;
+
+                slide.innerHTML = `
+                    <div class="candidate-type-banner">
+                        <div class="candidate-type-title">
+                            <h2>${candidate.line}</h2>
+                            <p>เลือกได้ <strong>${candidate.line === 'สายวิชาการ' ? '4' : '2'}</strong> หมายเลข</p>
+                        </div>
+                    </div>
+
+                    <div class="candidate-info">
+                        <!-- Left Column: Photo + Number -->
+                        <div class="left-column">
+                            <div class="photo-wrapper">
+                                <img src="${candidate.image}" 
+                                     alt="${candidate.name}" 
+                                     class="candidate-photo"
+                                     onerror="this.style.display='none'; this.parentElement.innerHTML='${candidate.fallbackIcon}';">
+                                <div class="candidate-number-badge">
+                                    <div class="number">${candidate.number}</div>
+                                    <div class="label">หมายเลข</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Info Cards -->
+                        <div class="right-column">
+                            <!-- Name Card -->
+                            <div class="name-card">
+                                <h1>${candidate.name}</h1>
+                                <p class="affiliation">${candidate.affiliation}</p>
+                            </div>
+
+                            <!-- Info Cards Grid -->
+                            <div class="info-cards-grid">
+                                <!-- Education Card -->
+                                <div class="info-card">
+                                    <div class="info-card-header">
+                                        <div class="info-card-icon education">
+                                            <i class="fas fa-graduation-cap"></i>
+                                        </div>
+                                        <h3 class="info-card-title">วุฒิการศึกษา</h3>
+                                    </div>
+                                    <div class="info-card-content">
+                                        <ul>
+                                            ${candidate.education.map(edu => `<li>${edu}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Concept Card -->
+                                <div class="info-card">
+                                    <div class="info-card-header">
+                                        <div class="info-card-icon concept">
+                                            <i class="fas fa-lightbulb"></i>
+                                        </div>
+                                        <h3 class="info-card-title">แนวคิดในการทำงาน</h3>
+                                    </div>
+                                    <div class="info-card-content">
+                                        ${candidate.concept}
+                                    </div>
+                                </div>
+
+                                <!-- Experience Card -->
+                                <div class="info-card">
+                                    <div class="info-card-header">
+                                        <div class="info-card-icon experience">
+                                            <i class="fas fa-briefcase"></i>
+                                        </div>
+                                        <h3 class="info-card-title">ประสบการณ์ที่โดดเด่น</h3>
+                                    </div>
+                                    <div class="info-card-content">
+                                        <ul>
+                                            ${candidate.experience.map(exp => `<li>${exp}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                slider.appendChild(slide);
+            });
+
+            document.getElementById('totalSlides').textContent = candidates.length;
+        }
+
+        // ===== Navigation =====
+        let currentSlideIndex = 0;
+        const slides = [];
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (i === index) {
+                    slide.classList.add('active');
+                }
+            });
+            document.getElementById('currentSlide').textContent = index + 1;
+        }
+
+        function nextSlide() {
+            currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+            showSlide(currentSlideIndex);
+        }
+
+        function prevSlide() {
+            currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
+            showSlide(currentSlideIndex);
+        }
+
+        // ===== Initialize =====
+        $(document).ready(function() {
+            createSlides();
+            slides.push(...document.querySelectorAll('.hero-slide'));
+
+            // Button Events
+            $('#nextBtn').on('click', nextSlide);
+            $('#prevBtn').on('click', prevSlide);
+
+            // Keyboard Navigation
+            $(document).on('keydown', function(e) {
+                if (e.key === 'ArrowRight') nextSlide();
+                if (e.key === 'ArrowLeft') prevSlide();
+            });
+
+            // Swipe Support
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            document.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+
+            document.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                if (touchStartX - touchEndX > 50) nextSlide();
+                if (touchEndX - touchStartX > 50) prevSlide();
+            });
+        });
+    </script>
+</body>
+</html>

@@ -184,7 +184,7 @@ body {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
   z-index: 10;
   text-align: center;
-      width: 100%;
+  width: 100%;
 }
 
 .candidate-type-banner i {
@@ -193,7 +193,7 @@ body {
 
 .candidate-type-banner i {
   font-size: 1.5rem;
-  margin-right: 0.75rem
+  margin-right: 0.75rem;
 }
 
 .candidate-type-banner.line-academic {
@@ -201,7 +201,7 @@ body {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.4);
-   color: #2b4fe7;
+  color: #2b4fe7;
 }
 
 .candidate-type-banner.line-academic .type-title {
@@ -683,20 +683,30 @@ body {
 }
 
 .hero-slide.active .info-card {
-  animation: fadeInUp 0.8s ease-out;
-  animation-fill-mode: both;
+  animation: cardSlideUp 0.6s ease-out forwards;
 }
 
 .hero-slide.active .info-card:nth-child(1) {
-  animation-delay: 0.1s;
+  animation-delay: 0.5s;
 }
 
 .hero-slide.active .info-card:nth-child(2) {
-  animation-delay: 0.2s;
+  animation-delay: 0.7s;
 }
 
 .hero-slide.active .info-card:nth-child(3) {
-  animation-delay: 0.3s;
+  animation-delay: 0.9s;
+}
+
+@keyframes cardSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .detail-link {

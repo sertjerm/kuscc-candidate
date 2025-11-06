@@ -4,10 +4,10 @@
 // ------------------------------------------------------
 
 // ⚙️ การตั้งค่า
-const SLIDE_DURATION = 5000; // เวลาเปลี่ยนสไลด์ (มิลลิวินาที)
+const SLIDE_DURATION = 5000000; // เวลาเปลี่ยนสไลด์ (มิลลิวินาที)
 
 let currentSlide = 0;
-let isAutoPlay = true;
+let isAutoPlay = false;//true;
 let autoPlayInterval;
 let displayCandidates = [];
 
